@@ -3,8 +3,10 @@ package pl.arek.petclinic.bootstrap;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import pl.arek.petclinic.model.Owner;
+import pl.arek.petclinic.model.PetType;
 import pl.arek.petclinic.model.Vet;
 import pl.arek.petclinic.services.OwnerService;
+import pl.arek.petclinic.services.PetTypeService;
 import pl.arek.petclinic.services.VetService;
 
 @Component
@@ -12,14 +14,26 @@ public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
     private final VetService vetService;
+    private final PetTypeService petTypeService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
+        this.petTypeService = petTypeService;
     }
 
     @Override
     public void run(String... args) throws Exception {
+
+        PetType dog = new PetType();
+        dog.setName("Dog");
+        PetType savedDogPetType = petTypeService.save(dog);
+
+        PetType cat = new PetType();
+        cat.setName("Cat");
+        PetType saveCatPetType = petTypeService.save(cat);
+
+        System.out.println("Loaded PetType...");
 
         Owner owner1 = new Owner();
         owner1.setFirstName("Michael");
