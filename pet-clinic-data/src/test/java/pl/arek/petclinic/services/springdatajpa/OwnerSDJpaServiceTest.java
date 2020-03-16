@@ -19,8 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -81,7 +80,8 @@ class OwnerSDJpaServiceTest {
     @Test
     void delete() {
         service.delete(returnOwner);
-        verify(ownerRepository).delete(any());
+        //default is 1 times
+        verify(ownerRepository, times(1)).delete(any());
     }
 
     @Test
